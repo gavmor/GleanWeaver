@@ -1,6 +1,11 @@
 # GleanWeaver
 
+> Note: *Watch me live-code this repo: [YouTube Recording](https://youtube.com/live/2hYjMlCJU9M).*
+
 This is a plugin for Obsidian (https://obsidian.md) which—given a list of notes and a template to follow—reduces the notes to a new note based on the template.
+
+---
+> Note: The following is default text from the Template.
 
 This project uses TypeScript to provide type checking and documentation.
 The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
