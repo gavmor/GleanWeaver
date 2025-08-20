@@ -98,7 +98,10 @@ class SampleModal extends Modal {
 
 	onOpen() {
 		const {contentEl} = this;
-		contentEl.setText('Woah!');
+		contentEl.setText('Reduce the source notes to an output file based on the given template:');
+		contentEl.createEl('input', { type: 'search', placeholder: 'Enter template path' });
+		contentEl.createEl('input', { type: 'search', placeholder: 'Enter sources path' });
+		contentEl.createEl('button', { text: 'Submit' }, (el) => {})
 	}
 
 	onClose() {
