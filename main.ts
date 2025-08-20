@@ -1,4 +1,5 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { FolderSuggest } from 'FolderSuggest';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, SearchComponent, Setting } from 'obsidian';
 
 // Remember to rename these classes and interfaces!
 
@@ -92,20 +93,27 @@ export default class MyPlugin extends Plugin {
 }
 
 class SampleModal extends Modal {
+	app: App;
+
 	constructor(app: App) {
 		super(app);
+		this.app = app;
 	}
 
 	onOpen() {
-		const {contentEl} = this;
-		contentEl.setText('Reduce the source notes to an output file based on the given template:');
-		contentEl.createEl('input', { type: 'search', placeholder: 'Enter template path' });
-		contentEl.createEl('input', { type: 'search', placeholder: 'Enter sources path' });
-		contentEl.createEl('button', { text: 'Submit' }, (el) => {})
+		const { contentEl } = this;
+
+		let template = "foo";
+		new Setting(contentEl).setName('Template').addSearch((search: SearchComponent): void => {
+			search.setValue(template).setPlaceholder('Search for a template').onChange(async (value) => {
+				template = value;
+			});
+			new FolderSuggest(this.app, search.inputEl);
+		});
 	}
 
 	onClose() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.empty();
 	}
 }
@@ -119,7 +127,7 @@ class SampleSettingTab extends PluginSettingTab {
 	}
 
 	display(): void {
-		const {containerEl} = this;
+		const { containerEl } = this;
 
 		containerEl.empty();
 
